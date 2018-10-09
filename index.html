@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>CSS Doodle testing</title>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/css-doodle/0.2.3/css-doodle.min.js"></script>
+</head>
+
+<body>
+  <css-doodle>
+  :doodle {
+    @grid: 15 / 61.8vmin;
+    @shape: circle;
+  }
+
+  border-radius: 50%;
+  border: calc(1px + .05vmin)
+    solid transparent;
+
+  --r: @rand(360deg);
+  --n: calc(
+      @abs(@abs(@row() - 8)
+    + @abs(@col() - 8) - 15) / 15
+  );
+
+  transform: rotate(var(--r));
+  border-left-color: hsl(
+    calc(var(--n) * 360 + 120), 60%, 60%
+  );
+
+  animation:
+    spin calc(.6s / var(--n)) linear infinite;
+
+  @keyframes spin {
+    to {
+      transform: rotate(
+        calc(var(--r) + @pick(1turn, -1turn))
+      );
+    }
+  }
+</css-doodle>
+</body>
+
+</html>
